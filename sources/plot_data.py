@@ -1,13 +1,34 @@
+#modules
 import json
+import gmplot
+
+#submodules
 from datetime import datetime
+
+#own py files
 import read_json
 
 
 def convert_time_stamp(timestamp):
-        print(timestamp)
-        print(type(datetime.fromtimestamp(int(timestamp)/1000)))
+        return(datetime.fromtimestamp(int(timestamp)/1000))
+
+def plot(lat_list, lon_list):
+     gmap = gmplot.GoogleMapPlotter(51.754030, 5.130150, 13)
+     gmap.scatter(lat_list, lon_list, '# FF0000', size = 40, marker = False)
+     gmap.plot(lat_list, lon_list, 'cornflowerblue', edge_width = 2.5)
+     gmap.draw("C:\\Users\\ArthervdBerg\\git\\Google-Location\\output\\map.html")
 
 with open('../json/Locatiegeschiedenis.json') as json_file:
-    jsonraw = json.load(json_file)
-    location_data = read_json.get_location(jsonraw, 1)
-    convert_time_stamp(location_data.get('time'))
+    json_raw = json.load(json_file)
+    lat_list = list()
+    lon_list = list()
+
+    for i in range(len(json_raw.get('locations'))):
+
+        location_data = read_json.get_location(json_raw, i)
+        lat_list.append(location_data.get('lat'))
+        lon_list.append(location_data.get('lon'))
+
+
+    gmpap = plot(lat_list, lon_list)
+
