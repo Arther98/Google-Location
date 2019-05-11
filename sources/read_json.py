@@ -20,6 +20,4 @@ def get_location(location_json, index):
     location['acc'] = location_json.get('locations')[index].get('accuracy')
     return location
 
-with open('../json/Locatiegeschiedenis.json') as json_file:
-    jsonraw = json.load(json_file)
-    print(get_location(jsonraw, 1))
+
