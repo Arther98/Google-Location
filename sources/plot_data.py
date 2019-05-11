@@ -5,7 +5,7 @@ import read_json
 
 def convert_time_stamp(timestamp):
         print(timestamp)
-        print(datetime.fromtimestamp(int(timestamp)/1000))
+        print(type(datetime.fromtimestamp(int(timestamp)/1000)))
 
 with open('../json/Locatiegeschiedenis.json') as json_file:
     jsonraw = json.load(json_file)
